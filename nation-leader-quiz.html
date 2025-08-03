@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>你是哪個國家的 Leader？</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      background-color: #f0f8ff;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>你是哪個國家的 Leader？</h1>
+  <form id="quiz-form">
+    <p>1. 面對危機，你會？<br>
+      <input type="radio" name="q1" value="日本"> 冷靜思考，三思而後行<br>
+      <input type="radio" name="q1" value="美國"> 帶頭衝第一，喊話團結<br>
+      <input type="radio" name="q1" value="韓國"> 顧及大家感受，柔中帶剛<br>
+      <input type="radio" name="q1" value="台灣"> 靈活轉彎，用創意化解<br>
+    </p>
+    <p>2. 你最重視的價值是？<br>
+      <input type="radio" name="q2" value="紐西蘭"> 公平與環境<br>
+      <input type="radio" name="q2" value="南非"> 和解與歷史<br>
+      <input type="radio" name="q2" value="英國"> 制度與穩定<br>
+      <input type="radio" name="q2" value="印度"> 發展與改革<br>
+    </p>
+    <button type="button" onclick="getResult()">看結果</button>
+  </form>
+  <div id="result" style="margin-top:20px;"></div>
+  <script>
+    function getResult() {
+      const form = document.getElementById('quiz-form');
+      const data = new FormData(form);
+      const scores = {};
+
+      for (const [key, value] of data.entries()) {
+        scores[value] = (scores[value] || 0) + 1;
+      }
+
+      let max = 0;
+      let leader = "未知";
+      for (const country in scores) {
+        if (scores[country] > max) {
+          max = scores[country];
+          leader = country;
+        }
+      }
+
+      document.getElementById('result').innerHTML = "<h2>你是：" + leader + " 的領導者風格！</h2>";
+    }
+  </script>
+</body>
+</html>
